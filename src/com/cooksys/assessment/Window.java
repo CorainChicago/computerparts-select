@@ -51,6 +51,7 @@ public class Window {
 
 	private JFrame frame;
 	private JTextField textField;
+	private DefaultListModel selectedParts;
 
 	/**
 	 * Launch the application. The main method is the entry point to a Java application. 
@@ -86,10 +87,10 @@ public class Window {
 		frame.getContentPane().setEnabled(false);
 		frame.getContentPane().setLayout(null);
 		
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.WHITE);
-		panel.setBounds(0, 0, 169, 256);
-		frame.getContentPane().add(panel);
+		JPanel panelLeft = new JPanel();
+		panelLeft.setBackground(Color.WHITE);
+		panelLeft.setBounds(0, 0, 169, 256);
+		frame.getContentPane().add(panelLeft);
 		
 		//Line 79 creates an array of the computer parts
 		
@@ -99,34 +100,30 @@ public class Window {
 		for (String part : parts){
 			computerParts.addElement(part);
 		}
-		panel.setLayout(null);
+		panelLeft.setLayout(null);
 		
 		// Line 83-85 creates the optionsList and adds the array of computer parts to display
-		final JList optionsList = new JList(computerParts);
+		final JList<String> optionsList = new JList<String>(computerParts);
 		optionsList.setBounds(6, 6, 77, 119);
-		panel.add(optionsList);
+		panelLeft.add(optionsList);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(Color.WHITE);
-		panel_1.setBounds(281, 0, 169, 256);
-		frame.getContentPane().add(panel_1);
+		JPanel panelRight = new JPanel();
+		panelRight.setBackground(Color.WHITE);
+		panelRight.setBounds(281, 0, 169, 256);
+		frame.getContentPane().add(panelRight);
 		
-		//Line 93 creates an empty array of strings to hold the selected items
-		final DefaultListModel selectedParts = new DefaultListModel();
-		String parts2[]= {"Test"};
-		selectedParts.addElement(parts);
+		setSelectedParts(new DefaultListModel<Object>());
+		panelRight.setLayout(null);
 		
-		panel_1.setLayout(null);
-		
-		final JList selectedList = new JList(selectedParts);
+		final JList<Object> selectedList = new JList<Object>(getSelectedParts());
 		selectedList.setBounds(84,5,0,0);
-		panel_1.add(selectedList);
+		panelRight.add(selectedList);
 		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(Color.LIGHT_GRAY);
-		panel_2.setBounds(167, 0, 112, 256);
-		frame.getContentPane().add(panel_2);
-		panel_2.setLayout(null);
+		JPanel panelCenter = new JPanel();
+		panelCenter.setBackground(Color.LIGHT_GRAY);
+		panelCenter.setBounds(167, 0, 112, 256);
+		frame.getContentPane().add(panelCenter);
+		panelCenter.setLayout(null);
 		
 		JButton button = new JButton(">>");
 		button.addActionListener(new ActionListener() {
@@ -134,12 +131,12 @@ public class Window {
 				int i = optionsList.getSelectedIndex();
 				Object selected = optionsList.getSelectedValue();
 				computerParts.remove(i);
-				selectedParts.addElement(selected);
+				getSelectedParts().addElement(selected);
 			}
 		});
 		
 		button.setBounds(37, 106, 51, 29);
-		panel_2.add(button);
+		panelCenter.add(button);
 		
 		JButton button_1 = new JButton("<<");
 		button_1.addActionListener(new ActionListener() {
@@ -148,7 +145,7 @@ public class Window {
 			}
 		});
 		button_1.setBounds(37, 136, 51, 29);
-		panel_2.add(button_1);
+		panelCenter.add(button_1);
 		
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -188,5 +185,13 @@ public class Window {
 		});
 		mnFile.add(mntmExit);
 			
+	}
+
+	public DefaultListModel<Object> getSelectedParts() {
+		return getSelectedParts();
+	}
+
+	public void setSelectedParts(DefaultListModel<Object> selectedParts) {
+		this.selectedParts = selectedParts;
 	}
 }
