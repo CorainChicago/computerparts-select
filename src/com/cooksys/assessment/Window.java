@@ -97,12 +97,19 @@ public class Window {
 		frame.getContentPane().setEnabled(false);
 		frame.getContentPane().setLayout(null);
 		
+		/*
+		 * Creates a new panel called panelLeft
+		 * Sets the background color to white and adds a size and location
+		 * Adds the panel to the frame and sets the layout to null
+		 */
 		JPanel panelLeft = new JPanel();
 		panelLeft.setBackground(Color.WHITE);
 		panelLeft.setBounds(0, 0, 169, 256);
 		frame.getContentPane().add(panelLeft);
 		panelLeft.setLayout(null);
 		
+		//Adds a new DefaultListModel to computerParts 
+		// Call setComputerParts to fill the list with the correct items
 		computerParts = new DefaultListModel();
 		setComputerParts();
 	
@@ -121,7 +128,10 @@ public class Window {
 		panelRight.setBounds(281, 0, 169, 256);
 		frame.getContentPane().add(panelRight);
 		
-		//creates an empty array of strings to hold the selected items
+		/*
+		 * Creates an empty DefaultListModel to hold the selected items
+		 * Adds the list to the panelRight as a JList and sets size and location 
+		 */
 		selectedParts = new DefaultListModel();
 		panelRight.setLayout(null);
 		final JList selectedList = new JList(selectedParts);
@@ -137,9 +147,7 @@ public class Window {
 		frame.getContentPane().add(panelCenter);
 		panelCenter.setLayout(null);
 		
-		
-		/*
-		 * Creates an button with a listener
+		/* Creates an button with a listener
 		 * The button adds a selected item from the optionsList 
 		 * to the selectedParts list and removes it from the options list
 		 * The button's size and location are set and it is added to the panelCenter
@@ -156,13 +164,11 @@ public class Window {
 		button.setBounds(37, 106, 51, 29);
 		panelCenter.add(button);
 		
-		/*
-		 * Creates an button with a listener
+		/* Creates an button with a listener
 		 * The button removes a selected item from the selectedParts list
 		 * and adds it to the computerParts list
 		 * The button's size and location are set and it is added to the panelCenter
 		 */
-		
 		JButton button_1 = new JButton("<<");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -183,14 +189,17 @@ public class Window {
 		JMenu mnFile = new JMenu("File");
 		menuBar.add(mnFile);
 		
-		// adds the following MenuItems below the File in the menu to appear on hover.  As a JMenuItem, they do not have sub-menus. 
+		/* Creates an item on the memu called "Load" with an event listener
+		 * When the item is selected, the file is unmarshalled into a ComputerListSelected object
+		 * All of the elements in the selectedParts list are removed 
+		 * and the list is reset with the items from the ComputerListSelect object.
+		*/ 
 		JMenuItem mntmLoad = new JMenuItem("Load");
 		mntmLoad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					File file = new File("C:\\file.xml");
 					JAXBContext jaxbContext = JAXBContext.newInstance(ComputerListSelected.class);
-
 					Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 					ComputerListSelected list = (ComputerListSelected) jaxbUnmarshaller.unmarshal(file);
 					System.out.println(list.getList());
@@ -207,7 +216,7 @@ public class Window {
 		});
 		mnFile.add(mntmLoad);
 		
-		/* Adds Save to the menu with a listener
+		/* Adds Save as an menuItem to the menu with a listener
 		 * When the save menu item is selected, it creates a ComputerListSelected object
 		 * The SelectedParts items are added to the ComputerListSelected object
 		 * A new file and new JAXBContext instance with the ComputerListSelected object are created
@@ -227,25 +236,17 @@ public class Window {
 					File file = new File("C:\\file.xml");
 					JAXBContext jaxbContext = JAXBContext.newInstance(ComputerListSelected.class);
 					Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-
-					// output pretty printed
 					jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
 					jaxbMarshaller.marshal(list, file);
 					jaxbMarshaller.marshal(list, System.out);
-
 				      } catch (JAXBException e2) {
 					e2.printStackTrace();
 				      }
-
 			}
 		});
 		mnFile.add(mntmSave);
 		
-		/*
-		 * Creates an Exit menuItem, adds a listener, and exits the program when selected
-		 */
-		
+		// Creates an Exit menuItem, adds a listener, and exits the program when selected
 		JMenuItem mntmExit = new JMenuItem("Exit");
 		mntmExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { 
@@ -255,8 +256,8 @@ public class Window {
 		mnFile.add(mntmExit);
 			
 	}
-	/*
-	 * Function clears the computerParts 
+	
+	/* Function clears the computerParts 
 	 * and adds a complete array of them to the computerParts DefaultListModule
 	 */
 	public void setComputerParts(){
