@@ -152,8 +152,8 @@ public class Window {
 		 * to the selectedParts list and removes it from the options list
 		 * The button's size and location are set and it is added to the panelCenter
 		 */
-		JButton button = new JButton(">>");
-		button.addActionListener(new ActionListener() {
+		JButton button_add = new JButton(">>");
+		button_add.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Object selected = optionsList.getSelectedValue();
 				int i = optionsList.getSelectedIndex();
@@ -161,16 +161,16 @@ public class Window {
 				computerParts.remove(i);
 			}
 		});
-		button.setBounds(37, 106, 51, 29);
-		panelCenter.add(button);
+		button_add.setBounds(37, 106, 51, 29);
+		panelCenter.add(button_add);
 		
 		/* Creates an button with a listener
 		 * The button removes a selected item from the selectedParts list
 		 * and adds it to the computerParts list
 		 * The button's size and location are set and it is added to the panelCenter
 		 */
-		JButton button_1 = new JButton("<<");
-		button_1.addActionListener(new ActionListener() {
+		JButton button_remove = new JButton("<<");
+		button_remove.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Object selected = selectedList.getSelectedValue();
 				int i = selectedList.getSelectedIndex();
@@ -178,8 +178,8 @@ public class Window {
 				selectedParts.remove(i);
 			}
 		});
-		button_1.setBounds(37, 136, 51, 29);
-		panelCenter.add(button_1);
+		button_remove.setBounds(37, 136, 51, 29);
+		panelCenter.add(button_remove);
 		
 		// creates a menu bar where the menu items will be located
 		JMenuBar menuBar = new JMenuBar();
